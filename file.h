@@ -24,7 +24,7 @@ void save_filesystem();
 
 folder_node *init_folder_tree(FILE *file_info, char *op);
 
-void init_file_link(FILE *file_info, folder_node *node);
+file_node *init_file_link_node(FILE *file_info);
 
 void LDR(FILE *file_info, folder_node *node);
 

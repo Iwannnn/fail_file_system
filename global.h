@@ -14,4 +14,8 @@
 #define FILEINFO_DIR "./fileinfo"
 #define FILEINFO_MODE "a+"
 
+const char *FOLDER_ = "FOLDER";
+const char *FILE_ = "FILE";
+const char *EMPTY_ = "EMPTY";
+
 char current_user[] = "";

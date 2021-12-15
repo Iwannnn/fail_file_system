@@ -4,7 +4,7 @@ void init_filesystem() {
     FILE *file_info = fopen(FILEINFO_DIR, FILEINFO_MODE);
     char op[20];
     fscanf(file_info, "%s", op);
-    if (strcmp(op, "FOLDER") == 0) {
+    if (strcmp(op, FOLDER_) == 0) {
         root = init_folder_tree(file_info, op);
     }
     fclose(file_info);
@@ -13,42 +13,50 @@ void init_filesystem() {
 folder_node *init_folder_tree(FILE *file_info, char *op) {
     folder_node *node = (folder_node *)malloc(sizeof(folder_node));
     char foldername[STRING_MAX];
-    printf("%s ", op);
     fscanf(file_info, "%s", foldername);
+    printf("FOLDER %s\n", foldername);
     node = create_folder_node(foldername);
-    printf("%s\n", node->foldername);
     fscanf(file_info, "%s", op);
-    while (strcmp(op, "FILE") == 0) {
-        printf("%s ", op);
-        init_file_link(file_info, node);
-        fscanf(file_info, "%s", op);
+    if (strcmp(op, FILE_) == 0) {
+        file_node *file = NULL, *next = NULL;
+        do {
+            if (!file) {
+                printf("first\t");
+                file = init_file_link_node(file_info);
+                node->file = file;
+            } else {
+                printf("next\t");
+                next = init_file_link_node(file_info);
+                file->next = next;
+                file = file->next;
+            }
+            fscanf(file_info, "%s", op);
+        } while (strcmp(op, FILE_) == 0);
     }
-    if (strcmp(op, "FOLDER") == 0) {
+    if (strcmp(op, FOLDER_) == 0) {
         node->child = init_folder_tree(file_info, op);
     } else {
-        printf("%s\n", op);
+        printf("EMPTY\n");
     }
     fscanf(file_info, "%s", op);
-    if (strcmp(op, "FOLDER") == 0) {
+    if (strcmp(op, FOLDER_) == 0) {
         node->sibling = init_folder_tree(file_info, op);
     } else {
-        printf("%s\n", op);
+        printf("EMPTY\n");
     }
     return node;
 }
 
-void init_file_link(FILE *file_info, folder_node *folder) {
+file_node *init_file_link_node(FILE *file_info) {
+    file_node *node = (file_node *)malloc(sizeof(file_node));
     char filename[STRING_MAX];
     char username[STRING_MAX];
     int owner_mode;
     int other_mode;
     fscanf(file_info, "%s %s %d %d", filename, username, &owner_mode, &other_mode);
-    file_node *file = folder->file;
-    while (file->next) {
-        file = file->next;
-    }
-    file->next = create_file_node(filename, username, owner_mode, other_mode);
-    return;
+    printf("FILE %s %s %d %d\n", filename, username, owner_mode, other_mode);
+    node = create_file_node(filename, username, owner_mode, other_mode);
+    return node;
 }
 
 void save_filesystem() {
@@ -57,29 +65,33 @@ void save_filesystem() {
     fclose(file_info);
 }
 
-void LDR(FILE *file_info, folder_node *folder) {
+void LDR(FILE *file_info, folder_node *node) {
     // fprintf(file_info, "FOLDER ");
-    // fprintf(file_info, "%s\n", folder->foldername);
-    printf("FOLDER %s\n", folder->foldername);
-    if (folder->file) traverse_folder(file_info, folder->file);
-    if (folder->child) {
-        LDR(file_info, folder->child);
+    // fprintf(file_info, "%s\n", node->foldername);
+    printf("FOLDER %s\n", node->foldername);
+    if (node->file) traverse_folder(file_info, node->file);
+    if (node->child) {
+        LDR(file_info, node->child);
     } else {
         // fprintf(file_info, "EMPTY\n");
         printf("EMPTY\n");
     }
-    if (folder->sibling) {
-        LDR(file_info, folder->sibling);
+    if (node->sibling) {
+        LDR(file_info, node->sibling);
     } else {
         // fprintf(file_info, "EMPTY\n");
         printf("EMPTY\n");
     }
+    free(node);
 }
 
-void traverse_folder(FILE *file_info, file_node *file) {
+void traverse_folder(FILE *file_info, file_node *node) {
     // fprintf(file_info, "FILE ");
-    // fprintf(file_info, "%s %s %d %d\n", file->filename, file->username, file->owner_mode, file->other_mode);
-    if (file->next) traverse_folder(file_info, file->next);
+    // fprintf(file_info, "%s %s %d %d\n", node->filename, node->username, node->owner_mode, node->other_mode);
+    printf("FILE %s %s %d %d\n", node->filename, node->username, node->owner_mode, node->other_mode);
+    if (node->next) {
+        traverse_folder(file_info, node->next);
+    }
 }
 
 folder_node *create_folder_node(char foldername[]) {
