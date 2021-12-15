@@ -1,7 +1,5 @@
 #include "user.h"
-#define SUCCESS 1
-#define FAILURE 0
-
+#include "global.h"
 int login(char *username, char *password) {
     if (!strcmp(username, "")) {
         printf("ALREADY LOGIN\n");
@@ -49,7 +47,7 @@ int logout() {
 }
 
 int find_user(char *username) {
-    char username_[255], password_[255];
+    char username_[STRING_MAX], password_[STRING_MAX];
     int t = 0, tt = 0;
     FILE *user_file = fopen(dir, mode);
     while (fscanf(user_file, "%s %s", username_, password_) != EOF) {
@@ -62,7 +60,7 @@ int find_user(char *username) {
 }
 
 int check_password(char *username, char *password) {
-    char username_[255], password_[255];
+    char username_[STRING_MAX], password_[STRING_MAX];
     FILE *user_file = NULL;
     user_file = fopen(dir, mode);
     while (fscanf(user_file, "%s %s", username_, password_) != EOF) {
@@ -76,8 +74,4 @@ int check_password(char *username, char *password) {
     }
     fclose(user_file);
     return FAILURE;
-}
-
-int main(int argc, char **argv) {
-    reg("root", "123456");
 }
