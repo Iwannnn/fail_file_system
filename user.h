@@ -1,3 +1,4 @@
+#include "global.h"
 #include <fcntl.h>
 #include <libgen.h>
 #include <stdio.h>
@@ -10,9 +11,6 @@ typedef struct USER {
     char *username;
     char *password;
 } user;
-char *dir = "./userinfo";
-char *mode = "a+";
-char *current_user = "";
 
 // 登录
 int login(char *username, char *password);
