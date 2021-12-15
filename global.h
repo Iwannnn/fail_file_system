@@ -1,9 +1,17 @@
+#include <fcntl.h>
+#include <libgen.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <unistd.h>
 #define FAILURE 0
 #define SUCCESS 1
 #define STRING_MAX 20
-char userinfo_dir[] = "./userinfo";
-char userinfo_mode[] = "a+";
-char current_user[] = "";
+#define USERINFO_DIR "./userinfo"
+#define USERINFO_MODE "a+"
+#define FILEINFO_DIR "./fileinfo"
+#define FILEINFO_MODE "a+"
 
-char fileinfo_dir[] = "./fileinfo";
-char fileinfo_mode[] = "a+";
+char current_user[] = "";
