@@ -12,10 +12,13 @@
 #define USERINFO_DIR "./userinfo"
 #define USERINFO_MODE "a+"
 #define FILEINFO_DIR "./fileinfo"
-#define FILEINFO_MODE "a+"
+#define FILEINFO_READ_MODE "a+"
+#define FILEINFO_SAVE_MODE "w"
 
 const char *FOLDER_ = "FOLDER";
 const char *FILE_ = "FILE";
 const char *EMPTY_ = "EMPTY";
+const char *SLASH = "/";
 
 char current_user[] = "";
+char current_dir[100] = "";

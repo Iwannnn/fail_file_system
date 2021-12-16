@@ -32,11 +32,19 @@ void traverse_folder(FILE *file_info, file_node *file);
 
 folder_node *create_folder_node(char foldername[]);
 
+void create_folder(char foldername[]);
+
 void delete_folder_node(folder_node *folder);
 
 void list_folder_node(folder_node *folder);
 
 file_node *create_file_node(char filename[], char username[], int user_mode, int other_mode);
+
+void create_file(char filename[]);
+
+void push_folder(char foldername[]);
+
+void pop_folder();
 
 void delete_file_node(file_node *file);
 

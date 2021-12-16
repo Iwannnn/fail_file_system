@@ -1,19 +1,10 @@
 FOLDER disk
 FILE a b 7 7
 FILE b b 7 7
-FILE b b 7 7
-FILE b b 7 7
-FILE b b 7 7
-FILE b b 7 7
 FOLDER c1
 FILE b b 7 7
-FILE b b 7 7
-FILE b b 7 7
-FILE b b 7 7
 FOLDER c2
-FILE b b 7 7
 FOLDER c3
-FILE b b 7 7
 EMPTY
 EMPTY
 EMPTY
