@@ -46,7 +46,7 @@ int logout() {
 }
 
 int find_user(char *username) {
-    char username_[STRING_MAX], password_[STRING_MAX];
+    char username_[NAME_MAX], password_[NAME_MAX];
     int t = 0, tt = 0;
     FILE *user_info = fopen(USERINFO_DIR, USERINFO_MODE);
     while (fscanf(user_info, "%s %s", username_, password_) != EOF) {
@@ -59,7 +59,7 @@ int find_user(char *username) {
 }
 
 int check_password(char *username, char *password) {
-    char username_[STRING_MAX], password_[STRING_MAX];
+    char username_[NAME_MAX], password_[NAME_MAX];
     FILE *user_info = NULL;
     user_info = fopen(USERINFO_DIR, USERINFO_MODE);
     while (fscanf(user_info, "%s %s", username_, password_) != EOF) {

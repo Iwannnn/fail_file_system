@@ -1,7 +1,7 @@
 #include "global.h"
 typedef struct USER {
-    char *username;
-    char *password;
+    char username[NAME_MAX];
+    char password[NAME_MAX];
 } user;
 
 // 登录

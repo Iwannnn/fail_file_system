@@ -14,7 +14,8 @@
  **/
 #define FAILURE 0
 #define SUCCESS 1
-#define STRING_MAX 20
+#define NAME_MAX 20
+#define PATH_MAX 100
 #define USERINFO_DIR "./userinfo"
 #define USERINFO_MODE "a+"
 #define FILEINFO_DIR "./fileinfo"
@@ -28,4 +29,4 @@ const char *EMPTY_ = "EMPTY";
 const char *SLASH = "/";
 
 char current_user[] = "";
-char current_dir[100] = ".";
+char current_dir[PATH_MAX] = ".";
