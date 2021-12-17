@@ -8,17 +8,18 @@ void init_filesystem() {
     char op[20];
     fscanf(file_info, "%s", op);
     if (strcmp(op, FOLDER_) == 0) {
-        root = init_folder_tree(file_info, op);
+        root = init_folder_tree(file_info, op, NULL);
     }
     fclose(file_info);
 }
 
-folder_node *init_folder_tree(FILE *file_info, char *op) {
+folder_node *init_folder_tree(FILE *file_info, char *op, folder_node *parent) {
     folder_node *node = (folder_node *)malloc(sizeof(folder_node));
     char foldername[NAME_MAX];
     fscanf(file_info, "%s", foldername);
     // printf("FOLDER %s\n", foldername);
     node = create_folder_node(foldername);
+    node->parent = parent;
     current_folder = node;
     // printf("current: %s\n", current_folder->foldername);
     push_folder(foldername);
@@ -41,8 +42,9 @@ folder_node *init_folder_tree(FILE *file_info, char *op) {
         } while (strcmp(op, FILE_) == 0);
     }
     if (strcmp(op, FOLDER_) == 0) {
-        node->child = init_folder_tree(file_info, op);
+        node->child = init_folder_tree(file_info, op, node);
         node->child->parent = node;
+        // printf("%s parent %s\n", node->child->foldername, node->child->parent->foldername);
         // printf("current->child->parent  %s\n", node->child->parent->foldername);
     } else {
         // printf("EMPTY\n");
@@ -50,8 +52,9 @@ folder_node *init_folder_tree(FILE *file_info, char *op) {
     pop_folder();
     fscanf(file_info, "%s", op);
     if (strcmp(op, FOLDER_) == 0) {
-        node->next_sibling = init_folder_tree(file_info, op);
+        node->next_sibling = init_folder_tree(file_info, op, parent);
         node->next_sibling->prev_sibling = node;
+        node->next_sibling->parent = node->parent;
         // printf("current->next_sibling->prev_sibling  %s\n", node->next_sibling->prev_sibling->foldername);
     } else {
         // printf("EMPTY\n");
@@ -121,7 +124,6 @@ void create_folder(char foldername[]) {
     strcat(tmp, current_dir);
     strcat(tmp, "/");
     strcat(tmp, foldername);
-    printf("folder:%s\n", tmp);
     mkdir(tmp, 0775);
 }
 
