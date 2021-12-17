@@ -102,7 +102,17 @@ folder_node *create_folder_node(char foldername[]) {
     folder->file = NULL;
     folder->child = NULL;
     folder->sibling = NULL;
+    create_folder(foldername);
     return folder;
+}
+
+void create_folder(char foldername[]) {
+    char tmp[100] = "";
+    strcat(tmp, current_dir);
+    strcat(tmp, "/");
+    strcat(tmp, foldername);
+    printf("folder:%s\n", tmp);
+    mkdir(tmp, 0775);
 }
 
 void delete_folder_node(folder_node *folder) {
@@ -118,7 +128,17 @@ file_node *create_file_node(char filename[], char username[], int owner_mode, in
     file->owner_mode = owner_mode;
     file->other_mode = other_mode;
     file->next = NULL;
+    create_file(filename);
     return file;
+}
+
+void create_file(char filename[]) {
+    char tmp[100] = "";
+    strcat(tmp, current_dir);
+    strcat(tmp, "/");
+    strcat(tmp, filename);
+    printf("file:%s\n", tmp);
+    open(tmp, O_CREAT | O_RDWR, 0775);
 }
 
 void delete_file_node(file_node *file) {
@@ -128,7 +148,6 @@ void delete_file_node(file_node *file) {
 void push_folder(char foldername[]) {
     strcat(current_dir, SLASH);
     strcat(current_dir, foldername);
-    printf("%s\n", current_dir);
 }
 
 void pop_folder() {
@@ -144,7 +163,7 @@ void pop_folder() {
         tmp[i] = current_dir[i];
     }
     strcpy(current_dir, tmp);
-    printf("%s\n", current_dir);
+    // printf("%s\n", current_dir);
 }
 
 void read_file(folder_node *folder);
