@@ -1,3 +1,5 @@
+#ifndef GLOBAL_H
+#define GLOBAL_H
 #include <fcntl.h>
 #include <libgen.h>
 #include <stdio.h>
@@ -23,10 +25,12 @@
 #define FILEINFO_SAVE_MODE "w"
 #define CREAT_MODE 0775
 
-const char *FOLDER_ = "FOLDER";
-const char *FILE_ = "FILE";
-const char *EMPTY_ = "EMPTY";
-const char *SLASH = "/";
+extern const char *FOLDER_;
+extern const char *FILE_;
+extern const char *EMPTY_;
+extern const char *SLASH;
 
-char current_user[] = "";
-char current_dir[PATH_MAX] = ".";
+extern char current_user[];
+extern char current_dir[PATH_MAX];
+
+#endif

@@ -1,5 +1,8 @@
 #include "file.h"
 
+folder_node *root;
+folder_node *current_folder;
+
 void init_filesystem() {
     FILE *file_info = fopen(FILEINFO_DIR, FILEINFO_READ_MODE);
     char op[20];
@@ -17,7 +20,7 @@ folder_node *init_folder_tree(FILE *file_info, char *op) {
     // printf("FOLDER %s\n", foldername);
     node = create_folder_node(foldername);
     current_folder = node;
-    printf("current: %s\n", current_folder->foldername);
+    // printf("current: %s\n", current_folder->foldername);
     push_folder(foldername);
     fscanf(file_info, "%s", op);
     if (strcmp(op, FILE_) == 0) {
@@ -40,7 +43,7 @@ folder_node *init_folder_tree(FILE *file_info, char *op) {
     if (strcmp(op, FOLDER_) == 0) {
         node->child = init_folder_tree(file_info, op);
         node->child->parent = node;
-        printf("current->child->parent  %s\n", node->child->parent->foldername);
+        // printf("current->child->parent  %s\n", node->child->parent->foldername);
     } else {
         // printf("EMPTY\n");
     }
@@ -49,7 +52,7 @@ folder_node *init_folder_tree(FILE *file_info, char *op) {
     if (strcmp(op, FOLDER_) == 0) {
         node->next_sibling = init_folder_tree(file_info, op);
         node->next_sibling->prev_sibling = node;
-        printf("current->next_sibling->prev_sibling  %s\n", node->next_sibling->prev_sibling->foldername);
+        // printf("current->next_sibling->prev_sibling  %s\n", node->next_sibling->prev_sibling->foldername);
     } else {
         // printf("EMPTY\n");
     }
@@ -138,7 +141,7 @@ void create_file(char filename[]) {
     strcat(tmp, current_dir);
     strcat(tmp, "/");
     strcat(tmp, filename);
-    printf("file:%s\n", tmp);
+    // printf("file:%s\n", tmp);
     open(tmp, O_CREAT | O_RDWR, 0775);
 }
 
@@ -273,8 +276,8 @@ void list_folder() {
             child = child->next_sibling;
             printf(" %s", child->foldername);
         }
-        printf("\n");
     }
+    printf("\n");
 }
 
 void list_file() {
@@ -286,8 +289,8 @@ void list_file() {
             file = file->next_file;
             printf(" %s", file->filename);
         }
-        printf("\n");
     }
+    printf("\n");
 }
 
 void read_file(char filename[]);
@@ -307,8 +310,8 @@ void write_file(char filename[]);
 //     fclose(file_info);
 // }
 
-int main() {
-    init_filesystem();
-    printf("-----------------------------\n");
-    save_filesystem();
-}
+// int main() {
+//     init_filesystem();
+//     printf("-----------------------------\n");
+//     save_filesystem();
+// }

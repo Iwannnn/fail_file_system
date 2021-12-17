@@ -1,3 +1,5 @@
+#ifndef USER_H
+#define USER_H
 #include "global.h"
 typedef struct USER {
     char username[NAME_MAX];
@@ -14,3 +16,5 @@ int logout();
 int find_user(char *username);
 // 判断密码
 int check_password(char *username, char *password);
+
+#endif

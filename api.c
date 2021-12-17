@@ -1,5 +1,4 @@
 #include "api.h"
-#include "file.h"
 
 void _cd_(char foldername[]) {
     if ((strcmp(foldername, "..") == 0) && current_folder->parent) {
@@ -54,11 +53,15 @@ void _touch_(char filename[]) {
         printf("filename exist!\n");
     } else {
         create_file(filename);
-        file_node *last_file = current_folder->file;
-        while (last_file) {
-            last_file = last_file->next_file;
+        if (!current_folder->file) {
+            current_folder->file = create_file_node(filename, current_user, 7, 5);
+        } else {
+            file_node *last_file = current_folder->file;
+            while (last_file->next_file) {
+                last_file = last_file->next_file;
+            }
+            last_file->next_file = create_file_node(filename, current_user, 7, 5);
         }
-        last_file = create_file_node(filename, current_user, 7, 5);
         save_filesystem();
     }
 }
@@ -88,3 +91,10 @@ void _write_(char filename[]);
 void _excute_(char filename[]);
 
 void _close_(FILE *f);
+
+int main() {
+    init_filesystem();
+    current_folder = root;
+    _ls_();
+    save_filesystem();
+}

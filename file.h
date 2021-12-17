@@ -1,3 +1,5 @@
+#ifndef FILE_H
+#define FILE_H
 #include "global.h"
 
 typedef struct FILENODE {
@@ -19,8 +21,8 @@ typedef struct FOLDERNODE {
     struct FOLDERNODE *prev_sibling;
 } folder_node;
 
-folder_node *root;
-folder_node *current_folder;
+extern folder_node *root;
+extern folder_node *current_folder;
 
 void init_filesystem();
 
@@ -73,3 +75,5 @@ void tree();
 void read_file(char filename[]);
 
 void write_file(char filename[]);
+
+#endif

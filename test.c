@@ -1,15 +1,5 @@
-#include <fcntl.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <unistd.h>
-
-typedef struct FOLDERNODE {
-    const char *foldername;
-} folder_node;
-
+#include "api.h"
 int main() {
-    rmdir("./test/ttt");
+    init_filesystem();
     return 0;
 }

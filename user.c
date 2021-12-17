@@ -1,4 +1,5 @@
 #include "user.h"
+
 int login(char *username, char *password) {
     if (!strcmp(username, "")) {
         printf("ALREADY LOGIN\n");

@@ -1,3 +1,6 @@
+#ifndef API_H
+#define API_H
+#include "file.h"
 #include "global.h"
 
 void _cd_(char foldername[]);
@@ -23,3 +26,5 @@ void _write_(char filename[]);
 void _excute_(char filename[]);
 
 void _close_(FILE *f);
+
+#endif
