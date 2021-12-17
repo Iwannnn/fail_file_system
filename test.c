@@ -3,13 +3,13 @@
 #include <stdlib.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <unistd.h>
 
 typedef struct FOLDERNODE {
     const char *foldername;
 } folder_node;
 
 int main() {
-    mkdir("/test", 0775);
-    creat("./test/testtest", 0775);
+    rmdir("./test/ttt");
     return 0;
 }
