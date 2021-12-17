@@ -9,6 +9,8 @@ void _cd_(char foldername[]) {
         if (folder) {
             push_folder(foldername);
             current_folder = folder;
+        } else {
+            printf("folder not exist!\n");
         }
     }
 }
@@ -19,6 +21,7 @@ void _ls_() {
 }
 
 void _mkdir_(char foldername[]) {
+    printf("current_dir %s\n", current_dir);
     if (is_folder_exist(foldername)) {
         printf("folder exist!\n");
         return;
@@ -95,6 +98,20 @@ void _close_(FILE *f);
 int main() {
     init_filesystem();
     current_folder = root;
-    _ls_();
-    save_filesystem();
+    strcpy(current_dir, "./disk");
+    // printf("-----------------------------\n");
+    // _ls_();
+    // printf("-----------------------------\n");
+    // _cd_("s1");
+    // _ls_();
+    // printf("-----------------------------\n");
+    // _cd_("..");
+    // _cd_("10086");
+    // _ls_();
+    // printf("-----------------------------\n");
+    printf("-----------------------------\n");
+    _mkdir_("tessssdadast");
+    printf("-----------------------------\n");
+    _mkdir_("s1");
+    printf("-----------------------------\n");
 }
